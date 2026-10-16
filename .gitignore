@@ -1,0 +1,16 @@
+# Private student transcripts, chat logs, and teacher-only guides
+Transcripts/
+messages/
+learning needs/
+Lessons/Lesson-01/How-To-Teach-Guide.md
+Lessons/Lesson-01/Teacher-Lesson-Plan.md
+
+# OS metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak

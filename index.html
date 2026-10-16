@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hélène’s English Studio | Lesson 01 Notes & Interactive Lab</title>
+
+  <!-- Google Fonts: Editorial Serif + Modern Sans + Phonetic Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js for Conversation Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Canvas Confetti for Quiz & Flashcard Celebrations -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            alabaster: '#FDFBF9',
+            cream: '#F7F1EB',
+            blush: {
+              50: '#FDF6F4',
+              100: '#FAEAE5',
+              200: '#F3D2C8',
+              300: '#E7B0A1',
+              400: '#D68772',
+              500: '#C46851',
+              600: '#A9503B',
+            },
+            plum: {
+              50: '#F9F4F6',
+              100: '#F1E6EB',
+              700: '#633045',
+              800: '#4A2032',
+              900: '#331421',
+            },
+            sage: {
+              50: '#F3F7F4',
+              100: '#E3ECE6',
+              500: '#5E826C',
+              600: '#496855',
+              700: '#3A5344',
+            },
+            amber: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              600: '#D97706',
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FDFBF9;
+      color: #331421;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-image: 
+        radial-gradient(at 10% 5%, rgba(243, 210, 200, 0.35) 0px, transparent 45%),
+        radial-gradient(at 90% 15%, rgba(227, 236, 230, 0.4) 0px, transparent 45%),
+        radial-gradient(at 50% 90%, rgba(250, 234, 229, 0.3) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* 3D Flip Card Styles */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F7F1EB;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E7B0A1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C46851;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-blush-200 selection:text-plum-900">
+
+  <!-- Sticky Top Navigation & Audio Bar -->
+  <nav class="sticky top-0 z-50 backdrop-blur-md bg-alabaster/85 border-b border-blush-200/70 transition-all no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand / Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blush-400 to-plum-800 flex items-center justify-center text-white font-serif font-bold text-xl shadow-sm">
+          H
+        </div>
+        <div>
+          <span class="font-serif font-bold text-lg text-plum-900 tracking-wide block leading-none">Hélène’s English Studio</span>
+          <span class="text-xs text-plum-700/75 font-medium">Lesson 01 • Fluency, Idioms & Phrasing Lab • With Lewis O.</span>
+        </div>
+      </div>
+
+      <!-- Section Links -->
+      <div class="hidden lg:flex items-center gap-1 text-xs font-semibold text-plum-800">
+        <a href="#analysis" class="px-3 py-1.5 rounded-full hover:bg-blush-100 transition">✨ Diagnostic</a>
+        <a href="#upgrades" class="px-3 py-1.5 rounded-full hover:bg-blush-100 transition">💬 Phrasing Polish (12)</a>
+        <a href="#vocabulary" class="px-3 py-1.5 rounded-full hover:bg-blush-100 transition">🌸 Vocabulary (20)</a>
+        <a href="#pronunciation" class="px-3 py-1.5 rounded-full hover:bg-blush-100 transition">🎙️ Pronunciation</a>
+        <a href="#practice" class="px-3 py-1.5 rounded-full hover:bg-blush-100 transition">🃏 Flashcards & Quiz</a>
+        <a href="erp-toolkit.html" class="px-3 py-1.5 rounded-full bg-plum-50 text-plum-700 hover:bg-plum-100 transition flex items-center gap-1 border border-plum-100">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i> ERP Tech Toolkit
+        </a>
+      </div>
+
+      <!-- Voice & Speed Controls -->
+      <div class="flex items-center gap-2 bg-cream px-3 py-1.5 rounded-full border border-blush-200/80 text-xs">
+        <i data-lucide="volume-2" class="w-4 h-4 text-blush-600"></i>
+        <select id="voiceAccent" class="bg-transparent font-semibold text-plum-800 focus:outline-none cursor-pointer" title="Choose Pronunciation Accent">
+          <option value="en-GB">🇬🇧 UK (Oxford)</option>
+          <option value="en-US">🇺🇸 US Accent</option>
+        </select>
+        <span class="text-blush-300">|</span>
+        <button id="speedToggle" onclick="toggleSpeed()" class="font-semibold text-blush-600 hover:text-plum-900 transition px-1.5 py-0.5 rounded bg-white/80 shadow-sm" title="Toggle Audio Speed">
+          1.0x Normal
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-16">
+
+    <!-- HERO SECTION -->
+    <header class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum-900 via-plum-800 to-[#5E2B3E] text-white p-8 sm:p-12 shadow-xl border border-plum-700/40">
+      <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-blush-400/15 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-sage-500/15 blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8 space-y-5">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-blush-100 text-xs font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Lesson 01 Study Notes • Spontaneous Fluency & Idioms</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight text-alabaster">
+            Bonjour Hélène, <br />
+            <span class="italic font-normal text-blush-200">welcome to your Lesson 01 Studio!</span>
+          </h1>
+
+          <p class="text-blush-100/90 text-base sm:text-lg leading-relaxed max-w-2xl">
+            Great work in our first session! Today we focused on building natural conversational momentum—exploring expressions for workplace leadership, everyday life in France, <strong class="text-white font-semibold">Solo Swing & Lindy Hop</strong>, and replacing common French-to-English false friends with crisp, idiomatic English.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2 no-print">
+            <a href="#upgrades" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blush-400 hover:bg-blush-500 text-white font-semibold text-sm shadow-md transition">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> Review 12 Phrasing Upgrades
+            </a>
+            <a href="#practice" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-sm backdrop-blur-sm border border-white/20 transition">
+              <i data-lucide="layers" class="w-4 h-4"></i> Practice Flashcards & Quiz
+            </a>
+            <button onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 text-blush-100 font-medium text-sm border border-white/10 transition">
+              <i data-lucide="printer" class="w-4 h-4"></i> Print / Save PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Snapshot Card inside Hero -->
+        <div class="lg:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/15 space-y-4">
+          <div class="flex items-center justify-between border-b border-white/15 pb-3">
+            <div>
+              <p class="text-xs uppercase tracking-widest text-blush-200 font-semibold">Session Focus</p>
+              <h2 class="font-serif text-2xl font-semibold text-white">Hélène R.</h2>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 text-xs font-bold">
+              B2 ➔ C1 Fluency
+            </span>
+          </div>
+
+          <ul class="space-y-2.5 text-sm text-blush-50">
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="zap" class="w-4 h-4 text-blush-300 shrink-0 mt-1"></i>
+              <span><strong>Key Strength:</strong> Proactive speaker who steps up and drives momentum</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-blush-300 shrink-0 mt-1"></i>
+              <span><strong>Grammar Focus:</strong> Prepositions (<em>explain to, hard on</em>) & indirect word order</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="book-open" class="w-4 h-4 text-blush-300 shrink-0 mt-1"></i>
+              <span><strong>Lexical Focus:</strong> False friends (<em>teach vs. learn, upbringing vs. education</em>)</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="calendar-check" class="w-4 h-4 text-blush-300 shrink-0 mt-1"></i>
+              <span><strong>Next Session:</strong> In 2 weeks on <strong>Google Meet</strong> (Picture Storytelling)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: CONVERSATION DIAGNOSTIC & ANALYTICS -->
+    <section id="analysis" class="space-y-8 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-blush-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-blush-600">Part 01 • Tutor’s Diagnostic</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-plum-900 mt-1">Spoken Fluency Analysis & Key Takeaways</h2>
+        </div>
+        <p class="text-sm text-plum-700/80 max-w-md">
+          A breakdown of your communicative strengths from Lesson 01 and the high-impact areas we are polishing next.
+        </p>
+      </div>
+
+      <!-- 3 Highlight Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-blush-100 hover:shadow-md transition">
+          <div class="w-11 h-11 rounded-xl bg-sage-50 text-sage-600 flex items-center justify-center mb-4">
+            <i data-lucide="message-square-heart" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-plum-900 mb-2">1. Great Conversational Drive</h3>
+          <p class="text-sm text-plum-800/80 leading-relaxed">
+            Just like in daily meetings when no one else takes the lead, you naturally push the <strong>momentum</strong> forward. When searching for a word in English, you never gave up—you described the idea clearly until we locked in the exact expression.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-blush-100 hover:shadow-md transition">
+          <div class="w-11 h-11 rounded-xl bg-blush-50 text-blush-600 flex items-center justify-center mb-4">
+            <i data-lucide="award" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-plum-900 mb-2">2. Clear, Expressive Ideas</h3>
+          <p class="text-sm text-plum-800/80 leading-relaxed">
+            You express nuanced opinions and comparisons with ease—whether explaining workplace dynamics, cultural communication styles, seasonal weather patterns, or why solo swing dancing is <em>"just like riding a bike."</em>
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-blush-100 hover:shadow-md transition">
+          <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-plum-900 mb-2">3. Our Main Growth Focus</h3>
+          <p class="text-sm text-plum-800/80 leading-relaxed">
+            Our top priority is eliminating <strong>direct French-to-English translations</strong> of everyday verbs and prepositions: upgrading <em>"learn to someone"</em> to <strong>"teach someone"</strong>, <em>"education"</em> to <strong>"upbringing"</strong>, and <em>"hard with"</em> to <strong>"hard on"</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-blush-100">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-plum-900">Your Spoken English Radar</h3>
+              <p class="text-xs text-plum-700/70">Lesson 01 baseline vs. our 8-week C1 target</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blush-50 text-blush-600">Interactive Chart</span>
+          </div>
+          <div class="h-72 flex items-center justify-center">
+            <canvas id="skillsRadarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-blush-100 flex flex-col justify-between">
+          <div>
+            <h3 class="font-serif text-2xl font-bold text-plum-900">Lesson 01 Focus Breakdown</h3>
+            <p class="text-xs text-plum-700/70 mb-4">Key linguistic areas practiced in our session</p>
+            <div class="h-56 flex items-center justify-center">
+              <canvas id="topicsDoughnutChart"></canvas>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-blush-100 text-xs text-plum-700/80 flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-blush-500 shrink-0"></i>
+            <span>Click any audio button below to practice the natural British or US pronunciation!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: PHRASING & GRAMMAR POLISH (WHAT YOU SAID -> NATURAL ENGLISH) -->
+    <section id="upgrades" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-blush-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-blush-600">Part 02 • Grammar & Syntax Polish</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-plum-900 mt-1">12 French-to-English Upgrades from Today</h2>
+        </div>
+        <p class="text-sm text-plum-700/80 max-w-md">
+          Click the <strong class="text-blush-600">🔊 Listen</strong> button on any card to hear the natural rhythm and intonation.
+        </p>
+      </div>
+
+      <div id="upgradesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: VOCABULARY & IDIOMS VAULT -->
+    <section id="vocabulary" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-blush-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-blush-600">Part 03 • Curated Lexicon from Lesson 01</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-plum-900 mt-1">20 Idioms, Phrasal Verbs & Expressions</h2>
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative w-full sm:w-72 no-print">
+          <i data-lucide="search" class="w-4 h-4 text-plum-700/50 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input
+            id="vocabSearch"
+            type="text"
+            placeholder="Search English or French..."
+            oninput="filterVocab()"
+            class="w-full pl-10 pr-4 py-2 rounded-full bg-white border border-blush-200 text-sm text-plum-900 placeholder:text-plum-700/40 focus:outline-none focus:border-blush-500 shadow-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap gap-2 no-print" id="vocabCategoryBtns">
+        <button onclick="setVocabCategory('all')" data-cat="all" class="vocab-cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-plum-800 text-white shadow-sm">
+          All Expressions (20)
+        </button>
+        <button onclick="setVocabCategory('leadership')" data-cat="leadership" class="vocab-cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-white text-plum-800 border border-blush-200 hover:bg-blush-50">
+          💼 Meetings, Work & Character
+        </button>
+        <button onclick="setVocabCategory('idioms')" data-cat="idioms" class="vocab-cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-white text-plum-800 border border-blush-200 hover:bg-blush-50">
+          ✨ Idioms & Phrasal Verbs
+        </button>
+        <button onclick="setVocabCategory('lifestyle')" data-cat="lifestyle" class="vocab-cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-white text-plum-800 border border-blush-200 hover:bg-blush-50">
+          💃 Hobbies, Holidays & Weather
+        </button>
+      </div>
+
+      <!-- Vocabulary Cards Grid -->
+      <div id="vocabGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 4: PRONUNCIATION & FALSE FRIENDS CLINIC -->
+    <section id="pronunciation" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-blush-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-blush-600">Part 04 • Accent & Sound Polish</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-plum-900 mt-1">Pronunciation & Look-Alike Words Clinic</h2>
+        </div>
+        <p class="text-sm text-plum-700/80 max-w-md">
+          Practice comparing these tricky look-alike words and silent-letter patterns side by side.
+        </p>
+      </div>
+
+      <div id="pronunciationGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE STUDY STUDIO (3D FLASHCARDS + QUIZ) -->
+    <section id="practice" class="space-y-8 scroll-mt-20 no-print">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-blush-200 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-blush-600">Part 05 • Interactive Memory Studio</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-plum-900 mt-1">3D Flashcards & Self-Check Quiz</h2>
+        </div>
+        <p class="text-sm text-plum-700/80 max-w-md">
+          Test your recall on the key expressions and grammar rules from Lesson 01!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- 3D Flip Flashcard Deck (5 Columns) -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-blush-200 space-y-5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-blush-600 flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> 3D Flip Flashcards
+            </span>
+            <span id="flashcardCounter" class="text-xs font-mono font-semibold text-plum-700 bg-blush-50 px-2.5 py-1 rounded-full">
+              1 / 10
+            </span>
+          </div>
+
+          <!-- 3D Card Container -->
+          <div
+            onclick="flipCard()"
+            class="perspective-1000 w-full h-72 cursor-pointer select-none"
+            title="Click to flip card"
+          >
+            <div id="flashcardInner" class="transform-style-3d relative w-full h-full">
+              <!-- Front of Card (French / Prompt) -->
+              <div class="backface-hidden absolute inset-0 rounded-2xl bg-gradient-to-br from-cream to-blush-100/70 border border-blush-200 p-6 flex flex-col justify-between shadow-inner">
+                <div class="flex items-center justify-between text-xs text-plum-700/70 font-medium">
+                  <span>🇫🇷 How do you say in natural English?</span>
+                  <span class="underline">Click to flip ↻</span>
+                </div>
+                <div class="my-auto text-center space-y-2">
+                  <p id="fcFrontFrench" class="font-serif text-2xl sm:text-3xl font-bold text-plum-900 leading-snug"></p>
+                  <p id="fcFrontHint" class="text-xs text-plum-700/75 italic"></p>
+                </div>
+                <div class="text-center text-[11px] uppercase tracking-widest text-blush-600 font-bold">
+                  Tap card to reveal English
+                </div>
+              </div>
+
+              <!-- Back of Card (English Answer) -->
+              <div class="backface-hidden rotate-y-180 absolute inset-0 rounded-2xl bg-gradient-to-br from-plum-900 to-plum-800 text-white p-6 flex flex-col justify-between shadow-lg">
+                <div class="flex items-center justify-between text-xs text-blush-200">
+                  <span>🇬🇧 Natural English Expression</span>
+                  <button
+                    onclick="event.stopPropagation(); speakCurrentFlashcard();"
+                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold transition"
+                  >
+                    <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> Listen
+                  </button>
+                </div>
+                <div class="my-auto text-center space-y-2">
+                  <p id="fcBackEnglish" class="font-serif text-2xl sm:text-3xl font-bold text-blush-200 leading-snug"></p>
+                  <p id="fcBackExample" class="text-xs text-blush-50/90 italic leading-relaxed"></p>
+                </div>
+                <div class="text-center text-[11px] text-blush-300">
+                  Tap to flip back
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex items-center justify-between pt-2">
+            <button onclick="prevFlashcard()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cream hover:bg-blush-100 text-plum-800 text-xs font-bold transition">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous
+            </button>
+            <button onclick="speakCurrentFlashcard()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-blush-50 hover:bg-blush-100 text-blush-600 text-xs font-bold transition">
+              <i data-lucide="volume-2" class="w-4 h-4"></i> Hear Audio
+            </button>
+            <button onclick="nextFlashcard()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-plum-800 hover:bg-plum-900 text-white text-xs font-bold transition">
+              Next <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive 8-Question Quiz (7 Columns) -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-blush-200 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-blush-100 pb-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-sage-600">Interactive Practice</span>
+              <h3 class="font-serif text-2xl font-bold text-plum-900">Lesson 01 Quick Mastery Quiz</h3>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="quizScoreBadge" class="px-3 py-1 rounded-full bg-sage-50 text-sage-700 font-bold text-xs border border-sage-100">
+                Score: 0 / 8
+              </span>
+              <button onclick="resetQuiz()" class="text-xs text-blush-600 hover:underline font-semibold">
+                Reset Quiz
+              </button>
+            </div>
+          </div>
+
+          <div id="quizContainer" class="space-y-6 max-h-[540px] overflow-y-auto pr-2">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: HOMEWORK & NEXT LESSON PREVIEW -->
+    <section class="rounded-3xl bg-gradient-to-r from-blush-100/80 via-cream to-sage-50/80 p-8 sm:p-10 border border-blush-200 shadow-sm">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-plum-800 text-xs font-bold shadow-sm">
+            <i data-lucide="calendar-heart" class="w-4 h-4 text-blush-500"></i>
+            Next Session • In Two Weeks
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-plum-900">
+            Have a Wonderful Break & Enjoy Your Swing Dancing! 💃
+          </h2>
+          <p class="text-sm sm:text-base text-plum-800/85 leading-relaxed">
+            Enjoy a lighter <strong>mental load</strong> and your weekly <strong>Lindy Hop / Solo Swing</strong> classes! Here is how we will kick off Lesson 02:
+          </p>
+          <ul class="space-y-2.5 text-sm text-plum-900">
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-plum-800 text-white text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <span><strong>Platform Switch:</strong> We will meet directly on <strong>Google Meet</strong> for a smoother video connection (check your messages for the invitation link).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-plum-800 text-white text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <span><strong>The Picture Warm-Up:</strong> Take a look at the unique photo I send you in our messages and think of 5–6 descriptive words or idioms to describe the scene.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-plum-800 text-white text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <span><strong>Weekly Habit:</strong> Try using <em>"take on board"</em>, <em>"step up / take charge"</em>, or <em>"understand how things work"</em> in your next meeting!</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-4 bg-white rounded-2xl p-6 border border-blush-200 shadow-sm space-y-4">
+          <h3 class="font-serif text-xl font-bold text-plum-900 flex items-center gap-2">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-sage-600"></i>
+            Pre-Lesson 02 Checklist
+          </h3>
+          <div class="space-y-3 text-sm text-plum-800">
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input type="checkbox" class="mt-1 rounded accent-blush-500" />
+              <span>Review <strong>teach vs. learn</strong> and <strong>upbringing vs. education</strong></span>
+            </label>
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input type="checkbox" class="mt-1 rounded accent-blush-500" />
+              <span>Practice pronouncing <strong>East</strong> (/iːst/), <strong>Comfortable</strong>, and <strong>Often</strong> (/ˈɒf.ən/)</span>
+            </label>
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input type="checkbox" class="mt-1 rounded accent-blush-500" />
+              <span>Look at the picture prompt & complete the 8-question quiz above!</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-blush-200/70 bg-cream/60 py-8 mt-16 text-center text-xs text-plum-700/75">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-serif text-base text-plum-900 font-semibold">Crafted for Hélène R. • Executive & Conversational English Coaching</p>
+      <p>Tutor: Lewis O. • October 2026 • <a href="erp-toolkit.html" class="underline hover:text-plum-900">View Automotive ERP Toolkit →</a></p>
+    </div>
+  </footer>
+
+  <!-- APPLICATION DATA & INTERACTIVE SCRIPTS -->
+  <script>
+    // ==========================================
+    // 1. TEXT-TO-SPEECH ENGINE
+    // ==========================================
+    let speechRate = 1.0;
+
+    function toggleSpeed() {
+      speechRate = speechRate === 1.0 ? 0.8 : 1.0;
+      const btn = document.getElementById('speedToggle');
+      btn.textContent = speechRate === 1.0 ? '1.0x Normal' : '0.8x Slow';
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) {
+        alert('Sorry, your browser does not support text-to-speech audio.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const lang = document.getElementById('voiceAccent')?.value || 'en-GB';
+      utterance.lang = lang;
+      utterance.rate = speechRate;
+
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.lang.includes(lang) && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Libby') || v.name.includes('Sonia')))
+                     || voices.find(v => v.lang.includes(lang));
+      if (preferred) utterance.voice = preferred;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // ==========================================
+    // 2. DATA: 12 PHRASING UPGRADES
+    // ==========================================
+    const upgradesData = [
+      {
+        topic: "Teach vs. Learn (False Friend)",
+        youSaid: "I tried to learn them some vocabulary / She does not want to learn it to him.",
+        natural: "I try to teach them new vocabulary / She doesn't want to teach it to him.",
+        rule: "In French, 'apprendre' means both to learn and to teach ('apprendre quelque chose à quelqu'un'). In English, the student LEARNS, and the instructor or mentor TEACHES ('teach someone something')."
+      },
+      {
+        topic: "Upbringing vs. Education",
+        youSaid: "We all received the same education at home.",
+        natural: "We all had the same upbringing.",
+        rule: "'Education' in English refers to school, university, and academic study. For values, manners, and how someone grows up, always use 'upbringing'."
+      },
+      {
+        topic: "Explain TO Someone",
+        youSaid: "I'm always explaining people why we do it this way.",
+        natural: "I always explain to people why we do it this way.",
+        rule: "Unlike 'tell' (tell someone), the verb 'explain' ALWAYS requires the preposition 'to' before the person: 'explain to the team', 'explain to the client'."
+      },
+      {
+        topic: "Frequency: Once a Week",
+        youSaid: "One in a week, I go to solo swing lessons.",
+        natural: "Once a week, I go to solo swing lessons.",
+        rule: "Use 'once a week' (1x), 'twice a week' (2x), and 'three times a week' (3x) rather than 'one in a week'."
+      },
+      {
+        topic: "Preposition: Hard ON Oneself",
+        youSaid: "He gets frustrated and is very hard with himself.",
+        natural: "He gets frustrated and is very hard on himself. He's quite self-critical.",
+        rule: "In English, we say 'to be hard ON someone' (être dur avec quelqu'un). Another great adjective is 'self-critical'!"
+      },
+      {
+        topic: "Indirect Question Word Order",
+        youSaid: "He likes to try to understand how works things.",
+        natural: "He loves trying to understand how things work.",
+        rule: "When 'how', 'what', or 'where' is in the middle of a sentence (not a direct question), keep normal Subject + Verb order: 'how things work' (not 'how works things')."
+      },
+      {
+        topic: "Taking Feedback Into Consideration",
+        youSaid: "We listen to them and we take it in consideration.",
+        natural: "We take their feedback on board / We take their ideas into consideration.",
+        rule: "Two fantastic native options: 'take [something] on board' (idiomatic British & international business phrase) or 'take [something] INTO consideration'."
+      },
+      {
+        topic: "Taking Charge in Meetings",
+        youSaid: "Today I started to talk because nobody took it in charge.",
+        natural: "Today I stepped up and started the meeting because nobody was taking charge.",
+        rule: "Say 'take charge (of something)' without 'it in'. Another great workplace phrasal verb is 'to step up' (prendre le relais / prendre ses responsabilités)."
+      },
+      {
+        topic: "Campsite vs. Camping",
+        youSaid: "For the second week of the holidays, they are going to a camping.",
+        natural: "For the second week of the holidays, they are going to a campsite (or going camping).",
+        rule: "In English, 'camping' is the activity ('go camping'). The physical place in nature with facilities and a swimming pool is a 'campsite' or 'holiday park'."
+      },
+      {
+        topic: "Expressing Duration",
+        youSaid: "It's been perhaps one month that there is not a lot of rain.",
+        natural: "We haven't had much rain for about a month.",
+        rule: "Instead of translating 'Ça fait un mois que...' word for word, use Present Perfect ('We haven't had...' or 'It hasn't rained...') + 'for about a month'."
+      },
+      {
+        topic: "Idiom: Like Riding a Bike",
+        youSaid: "It's like a bicycle... you have to warm up and then it come back.",
+        natural: "It's just like riding a bike—once you warm up, it comes right back to you!",
+        rule: "In French we say 'C'est comme le vélo'. In English, we always include the verb: 'It's like riding a bike'."
+      },
+      {
+        topic: "Adverb: Often (Never 'Oftenly')",
+        youSaid: "We don't see that very oftenly.",
+        natural: "We don't see that very often.",
+        rule: "'Often' is already an adverb, so it never takes '-ly'. Bonus pronunciation tip: the 't' in 'often' (/ˈɒf.ən/) is usually silent!"
+      }
+    ];
+
+    function renderUpgrades() {
+      const container = document.getElementById('upgradesGrid');
+      container.innerHTML = upgradesData.map((item, idx) => `
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-blush-100 flex flex-col justify-between space-y-4 hover:border-blush-300 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blush-50 text-blush-600">
+                ${idx + 1}. ${item.topic}
+              </span>
+              <button
+                onclick="speak(${JSON.stringify(item.natural).replace(/"/g, '&quot;')})"
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-plum-800 hover:bg-plum-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> Listen
+              </button>
+            </div>
+
+            <!-- What you said -->
+            <div class="p-3 rounded-xl bg-rose-50/60 border border-rose-100 text-xs sm:text-sm text-plum-800/80">
+              <span class="font-bold text-rose-600 block text-[11px] uppercase tracking-wider mb-0.5">✗ Direct Translation:</span>
+              "${item.youSaid}"
+            </div>
+
+            <!-- Natural Upgrade -->
+            <div class="p-3.5 rounded-xl bg-sage-50/80 border border-sage-100 text-sm sm:text-base text-plum-900 font-medium">
+              <span class="font-bold text-sage-600 block text-[11px] uppercase tracking-wider mb-0.5">✓ Natural Native Upgrade:</span>
+              "${item.natural}"
+            </div>
+          </div>
+
+          <p class="text-xs text-plum-700/80 leading-relaxed pt-2 border-t border-blush-100">
+            <strong class="text-plum-900">💡 Why:</strong> ${item.rule}
+          </p>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // 3. DATA: 20 VOCABULARY & IDIOMS VAULT
+    // ==========================================
+    const vocabData = [
+      {
+        word: "To water the plants",
+        ipa: "/tə ˈwɔː.tə ðə plɑːnts/",
+        fr: "Arroser les plantes",
+        cat: "lifestyle",
+        meaning: "To pour water on plants or gardens ('water' is both a noun and a verb!).",
+        example: "Because of the dry October weather in eastern France, residents aren't allowed to water their plants."
+      },
+      {
+        word: "Prohibited / Hosepipe ban",
+        ipa: "/prəˈhɪb.ɪ.tɪd/",
+        fr: "Interdit / Restriction d'eau",
+        cat: "lifestyle",
+        meaning: "Officially forbidden by local authorities; in the UK, a water restriction is called a 'hosepipe ban'.",
+        example: "Watering gardens is currently prohibited by the local town hall due to the drought."
+      },
+      {
+        word: "Holiday club / Activity club",
+        ipa: "/ˈhɒl.ɪ.deɪ klʌb/",
+        fr: "Centre de loisirs / Centre aéré",
+        cat: "lifestyle",
+        meaning: "Daytime activity center organized by a town during school holidays for sports and games.",
+        example: "In the UK and France, many towns run a local holiday club during the autumn half-term break."
+      },
+      {
+        word: "Campsite / Holiday park",
+        ipa: "/ˈkæmp.saɪt/",
+        fr: "Un camping (le lieu)",
+        cat: "lifestyle",
+        meaning: "A dedicated outdoor resort with pitches or mobile homes, nature trails, and a swimming pool.",
+        example: "They booked a quiet week at a campsite with a heated pool and outdoor activities."
+      },
+      {
+        word: "Mental load",
+        ipa: "/ˈmen.təl ləʊd/",
+        fr: "La charge mentale",
+        cat: "lifestyle",
+        meaning: "The invisible cognitive effort of organizing schedules, tasks, and daily responsibilities.",
+        example: "Having a quiet week to focus purely on your own projects makes your mental load feel much lighter."
+      },
+      {
+        word: "Solo Swing / Lindy Hop social",
+        ipa: "/ˈlɪn.di hɒp ˈsəʊ.ʃəl/",
+        fr: "Soirée / Pratique de danse Swing",
+        cat: "lifestyle",
+        meaning: "An evening dance gathering or meetup where dancers practice swing steps and routines.",
+        example: "Once a week I attend solo swing lessons, and occasionally I go to an evening dance social."
+      },
+      {
+        word: "It's like riding a bike",
+        ipa: "/ɪts laɪk ˈraɪ.dɪŋ ə baɪk/",
+        fr: "C'est comme le vélo, ça ne s'oublie pas",
+        cat: "idioms",
+        meaning: "A skill that you never truly forget once you have learned it, even after a break.",
+        example: "Swing dancing is like riding a bike—once you warm up for a few minutes, the rhythm comes right back."
+      },
+      {
+        word: "It's not my/his thing",
+        ipa: "/ɪts nɒt maɪ θɪŋ/",
+        fr: "Ce n'est pas mon/son truc",
+        cat: "idioms",
+        meaning: "Something that doesn't match someone's personal interests or tastes.",
+        example: "I love jazz and swing dancing, whereas partner dancing really isn't his thing."
+      },
+      {
+        word: "To take (something) on board",
+        ipa: "/tə teɪk ɒn bɔːd/",
+        fr: "Prendre en compte / Écouter attentivement",
+        cat: "idioms",
+        meaning: "To listen carefully to feedback, suggestions, or perspectives and accept or act on them.",
+        example: "During sprint reviews, we always take the client's feedback on board before finalizing the release."
+      },
+      {
+        word: "Self-critical / Hard on oneself",
+        ipa: "/ˌselfˈkrɪt.ɪ.kəl/",
+        fr: "Auto-critique / Très dur avec soi-même",
+        cat: "leadership",
+        meaning: "Judging one's own performance too harshly when learning a new skill.",
+        example: "When learning a foreign language or a new tool, try not to be too self-critical on the first attempt."
+      },
+      {
+        word: "Abrupt / Direct",
+        ipa: "/əˈbrʌpt/",
+        fr: "Brusque / Très direct",
+        cat: "leadership",
+        meaning: "Sudden, brief, or blunt in speech without softening the message.",
+        example: "Without natural English intonation, a short sentence in a meeting can sometimes sound a bit abrupt."
+      },
+      {
+        word: "Upbringing",
+        ipa: "/ˈʌpˌbrɪŋ.ɪŋ/",
+        fr: "L'éducation (les valeurs transmises)",
+        cat: "leadership",
+        meaning: "The background and values a person grows up with (as opposed to academic 'education').",
+        example: "Your cultural upbringing often shapes how directly you communicate in a team."
+      },
+      {
+        word: "To undersell something",
+        ipa: "/tə ˌʌn.dəˈsel/",
+        fr: "Minimiser (la difficulté ou le mérite)",
+        cat: "idioms",
+        meaning: "To describe an intense challenge or achievement as much smaller or easier than it really was.",
+        example: "Don't undersell the complexity of that ERP migration—it took months of careful work!"
+      },
+      {
+        word: "Open-minded",
+        ipa: "/ˌəʊ.pənˈmaɪn.dɪd/",
+        fr: "Ouvert d'esprit",
+        cat: "leadership",
+        meaning: "Willing to consider new ideas, international cultures, or different ways of working.",
+        example: "Working with international teams requires staying curious and open-minded."
+      },
+      {
+        word: "A tough cookie",
+        ipa: "/ə tʌf ˈkʊk.i/",
+        fr: "Une personne solide / Qui ne se laisse pas faire",
+        cat: "idioms",
+        meaning: "Someone who is resilient, determined, and stands up for what is fair.",
+        example: "She is a tough cookie under pressure—if a deadline or scope request isn't fair, she speaks up."
+      },
+      {
+        word: "To take charge / To step up",
+        ipa: "/tə teɪk tʃɑːdʒ/",
+        fr: "Prendre les choses en main / Prendre le relais",
+        cat: "leadership",
+        meaning: "To assume leadership or responsibility when no one else is leading.",
+        example: "When the project manager is absent during the daily standup and nobody takes charge, I step up to lead."
+      },
+      {
+        word: "To corral people / Momentum",
+        ipa: "/tə kəˈrɑːl/ • /məˈmen.təm/",
+        fr: "Mobiliser un groupe / L'élan",
+        cat: "leadership",
+        meaning: "To gather and organize a group of people to get moving; driving the forward energy of a meeting.",
+        example: "At the start of a busy call, someone needs to corral the team and build momentum."
+      },
+      {
+        word: "Cool and level-headed",
+        ipa: "/ˌlev.əlˈhed.ɪd/",
+        fr: "Calme et posé(e) / Garder la tête froide",
+        cat: "leadership",
+        meaning: "Staying calm, sensible, and composed even when others around you are stressed.",
+        example: "During a production incident, staying cool and level-headed helps the whole team find a solution faster."
+      },
+      {
+        word: "To have no filter",
+        ipa: "/tə hæv nəʊ ˈfɪl.tər/",
+        fr: "Ne pas avoir de filtre / Être très cash",
+        cat: "idioms",
+        meaning: "Saying whatever comes to mind directly without softening or filtering it.",
+        example: "Some people have no filter and say exactly what they are thinking right away."
+      },
+      {
+        word: "It's a shame / Time flies",
+        ipa: "/ɪts ə ʃeɪm/ • /taɪm flaɪz/",
+        fr: "C'est dommage / Le temps passe vite",
+        cat: "idioms",
+        meaning: "'It's a shame' expresses regret about a situation; 'time flies' (Tempus fugit) means time passes very quickly.",
+        example: "It's a shame we didn't have time to finish that topic today—time really flies when you're having a great conversation!"
+      }
+    ];
+
+    let activeVocabCat = 'all';
+
+    function setVocabCategory(cat) {
+      activeVocabCat = cat;
+      document.querySelectorAll('.vocab-cat-btn').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = "vocab-cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-plum-800 text-white shadow-sm";
+        } else {
+          btn.className = "vocab-cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-white text-plum-800 border border-blush-200 hover:bg-blush-50";
+        }
+      });
+      filterVocab();
+    }
+
+    function filterVocab() {
+      const query = (document.getElementById('vocabSearch')?.value || '').toLowerCase();
+      const filtered = vocabData.filter(item => {
+        const matchesCat = activeVocabCat === 'all' || item.cat === activeVocabCat;
+        const matchesQuery = item.word.toLowerCase().includes(query)
+                          || item.fr.toLowerCase().includes(query)
+                          || item.meaning.toLowerCase().includes(query)
+                          || item.example.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      const grid = document.getElementById('vocabGrid');
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-blush-100 flex flex-col justify-between hover:shadow-md hover:border-blush-300 transition group">
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div>
+                <h3 class="font-serif text-2xl font-bold text-plum-900 group-hover:text-blush-600 transition">${item.word}</h3>
+                <span class="font-mono text-xs text-plum-700/60">${item.ipa}</span>
+              </div>
+              <button
+                onclick="speak(${JSON.stringify(item.word + '. ' + item.example).replace(/"/g, '&quot;')})"
+                class="w-9 h-9 rounded-full bg-blush-50 hover:bg-plum-800 text-blush-600 hover:text-white flex items-center justify-center transition shrink-0"
+                title="Listen to pronunciation & example"
+              >
+                <i data-lucide="volume-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <div class="inline-block px-2.5 py-0.5 rounded-md bg-cream text-plum-800 text-xs font-semibold mb-3 border border-blush-200/60">
+              🇫🇷 ${item.fr}
+            </div>
+
+            <p class="text-xs text-plum-800/80 leading-relaxed mb-3">
+              ${item.meaning}
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-blush-100/80 text-xs italic text-plum-900 bg-blush-50/40 -mx-5 -mb-5 p-4 rounded-b-2xl">
+            "${item.example}"
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // 4. DATA: PRONUNCIATION & SOUND CLINIC
+    // ==========================================
+    const pronunciationPairs = [
+      {
+        title: "East (Direction) vs. Easter (Holiday)",
+        tip: "'East' has only ONE syllable (/iːst/). Adding '-er' turns it into the spring holiday (Pâques)!",
+        wordA: { label: "The East of France", ipa: "/ði iːst əv frɑːns/", note: "1 syllable • L'Est de la France" },
+        wordB: { label: "Easter Holiday", ipa: "/ˈiː.stə/", note: "2 syllables • Les vacances de Pâques" }
+      },
+      {
+        title: "Lesson vs. Listener",
+        tip: "When talking about weekly classes, keep 'lesson' (2 syllables) distinct from 'listener' (3 syllables).",
+        wordA: { label: "Dance lessons", ipa: "/dɑːns ˈles.ənz/", note: "Cours de danse (2 syllables)" },
+        wordB: { label: "A good listener", ipa: "/ə ɡʊd ˈlɪs.ən.ər/", note: "Quelqu'un qui écoute bien (silent 't')" }
+      },
+      {
+        title: "Adult vs. Abrupt",
+        tip: "These two words have similar vowel rhythms, so make sure the consonant cluster '-br-' in 'abrupt' is crisp:",
+        wordA: { label: "An adult", ipa: "/ən ˈæd.ʌlt/", note: "Grown-up ('As an adult, you understand')" },
+        wordB: { label: "Abrupt", ipa: "/əˈbrʌpt/", note: "Sudden, brief, or direct in manner" }
+      },
+      {
+        title: "Often & Comfortable (Silent Letters!)",
+        tip: "English drops middle letters to keep the rhythm smooth and stress-timed.",
+        wordA: { label: "Very often", ipa: "/ˈver.i ˈɒf.ən/", note: "Silent 't' — never say 'often-ly'" },
+        wordB: { label: "Comfortable", ipa: "/ˈkʌmf.tə.bəl/", note: "3 syllables: COMF-ta-ble (not com-for-ta-ble)" }
+      },
+      {
+        title: "Upbringing & Level-Headed",
+        tip: "Two high-level compound words for describing background and composure:",
+        wordA: { label: "Upbringing", ipa: "/ˈʌpˌbrɪŋ.ɪŋ/", note: "Stress on UP • Cultural/personal background" },
+        wordB: { label: "Level-headed", ipa: "/ˌlev.əlˈhed.ɪd/", note: "Calm and rational under pressure" }
+      },
+      {
+        title: "Prohibited vs. Allowed",
+        tip: "Put strong stress on the second syllable of pro-HIB-i-ted (/prəˈhɪb.ɪ.tɪd/):",
+        wordA: { label: "Strictly prohibited", ipa: "/ˈstrɪkt.li prəˈhɪb.ɪ.tɪd/", note: "Stress on -HIB- • Officially banned" },
+        wordB: { label: "Not allowed", ipa: "/nɒt əˈlaʊd/", note: "Everyday conversational alternative" }
+      }
+    ];
+
+    function renderPronunciation() {
+      const grid = document.getElementById('pronunciationGrid');
+      grid.innerHTML = pronunciationPairs.map(pair => `
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-blush-100 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="font-serif text-xl font-bold text-plum-900 mb-1">${pair.title}</h3>
+            <p class="text-xs text-plum-700/80 leading-relaxed mb-4">${pair.tip}</p>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="p-3 rounded-xl bg-sage-50/70 border border-sage-100 flex items-center justify-between gap-2">
+              <div>
+                <div class="font-bold text-sm text-plum-900">${pair.wordA.label}</div>
+                <div class="font-mono text-xs text-sage-700">${pair.wordA.ipa}</div>
+                <div class="text-[11px] text-plum-700/75 mt-0.5">${pair.wordA.note}</div>
+              </div>
+              <button
+                onclick="speak(${JSON.stringify(pair.wordA.label).replace(/"/g, '&quot;')})"
+                class="px-3 py-1.5 rounded-full bg-white hover:bg-sage-600 text-sage-700 hover:text-white border border-sage-200 text-xs font-bold transition shrink-0 shadow-sm"
+              >
+                ▶ Hear
+              </button>
+            </div>
+
+            <div class="p-3 rounded-xl bg-blush-50/60 border border-blush-100 flex items-center justify-between gap-2">
+              <div>
+                <div class="font-bold text-sm text-plum-900">${pair.wordB.label}</div>
+                <div class="font-mono text-xs text-blush-600">${pair.wordB.ipa}</div>
+                <div class="text-[11px] text-plum-700/75 mt-0.5">${pair.wordB.note}</div>
+              </div>
+              <button
+                onclick="speak(${JSON.stringify(pair.wordB.label).replace(/"/g, '&quot;')})"
+                class="px-3 py-1.5 rounded-full bg-white hover:bg-blush-600 text-blush-600 hover:text-white border border-blush-200 text-xs font-bold transition shrink-0 shadow-sm"
+              >
+                ▶ Hear
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==========================================
+    // 5. INTERACTIVE 3D FLASHCARDS
+    // ==========================================
+    const flashcards = [
+      {
+        fr: "Arroser les plantes",
+        hint: "Think: 'water' used as an action verb!",
+        en: "To water the plants",
+        ex: "Because of the drought, we aren't allowed to water the plants."
+      },
+      {
+        fr: "Ma charge mentale est plus légère",
+        hint: "Modern expression for cognitive workload",
+        en: "My mental load is lighter",
+        ex: "Having a quiet week to focus on work makes my mental load much lighter."
+      },
+      {
+        fr: "Nous prenons en compte leurs retours / idées",
+        hint: "Idiomatic expression with 'board'",
+        en: "We take their feedback on board",
+        ex: "We always listen to the team and take their suggestions on board."
+      },
+      {
+        fr: "Être très dur avec soi-même / auto-critique",
+        hint: "Watch the preposition after 'hard'!",
+        en: "To be hard on oneself / self-critical",
+        ex: "Try not to be too hard on yourself when practicing a new skill."
+      },
+      {
+        fr: "Avoir reçu la même éducation (valeurs familiales)",
+        hint: "Beware of the false friend 'education'!",
+        en: "To have the same upbringing",
+        ex: "Even people with the same upbringing can have very different personalities."
+      },
+      {
+        fr: "C'est comme le vélo, ça ne s'oublie pas",
+        hint: "Remember to include the action verb in English!",
+        en: "It's like riding a bike",
+        ex: "Swing dancing is like riding a bike—once you warm up, it comes right back."
+      },
+      {
+        fr: "Une personne solide qui ne se laisse pas faire",
+        hint: "Idiomatic expression with 'cookie'",
+        en: "A tough cookie",
+        ex: "She's a tough cookie—if something isn't fair in a project, she speaks up."
+      },
+      {
+        fr: "Prendre les choses en main (en réunion)",
+        hint: "When the manager isn't in the daily standup...",
+        en: "To take charge / To step up",
+        ex: "Nobody was taking charge of the daily meeting, so I stepped up."
+      },
+      {
+        fr: "Enseigner / Apprendre quelque chose à quelqu'un",
+        hint: "Careful: Do you 'learn' someone or 'teach' someone?",
+        en: "To teach someone something",
+        ex: "I offered to teach my colleague how the new ERP module works."
+      },
+      {
+        fr: "Garder la tête froide / Être calme et posé(e)",
+        hint: "Compound adjective with 'level'",
+        en: "To stay cool and level-headed",
+        ex: "She stays calm and level-headed even when the whole team is under pressure."
+      }
+    ];
+
+    let currentCardIdx = 0;
+    let isFlipped = false;
+
+    function updateFlashcardUI() {
+      const card = flashcards[currentCardIdx];
+      const inner = document.getElementById('flashcardInner');
+      isFlipped = false;
+      inner.classList.remove('rotate-y-180');
+
+      setTimeout(() => {
+        document.getElementById('fcFrontFrench').textContent = `"${card.fr}"`;
+        document.getElementById('fcFrontHint').textContent = card.hint;
+        document.getElementById('fcBackEnglish').textContent = card.en;
+        document.getElementById('fcBackExample').textContent = `"${card.ex}"`;
+        document.getElementById('flashcardCounter').textContent = `${currentCardIdx + 1} / ${flashcards.length}`;
+      }, 150);
+    }
+
+    function flipCard() {
+      const inner = document.getElementById('flashcardInner');
+      isFlipped = !isFlipped;
+      inner.classList.toggle('rotate-y-180', isFlipped);
+    }
+
+    function nextFlashcard() {
+      currentCardIdx = (currentCardIdx + 1) % flashcards.length;
+      updateFlashcardUI();
+    }
+
+    function prevFlashcard() {
+      currentCardIdx = (currentCardIdx - 1 + flashcards.length) % flashcards.length;
+      updateFlashcardUI();
+    }
+
+    function speakCurrentFlashcard() {
+      const card = flashcards[currentCardIdx];
+      speak(`${card.en}. ${card.ex}`);
+    }
+
+    // ==========================================
+    // 6. INTERACTIVE 8-QUESTION SELF-QUIZ
+    // ==========================================
+    const quizQuestions = [
+      {
+        q: "1. How do you say 'Je vais à mon cours de solo swing une fois par semaine'?",
+        options: [
+          "One in a week, I go to my solo swing lesson.",
+          "Once a week, I go to my solo swing lesson.",
+          "One time by week, I go to my solo swing listener."
+        ],
+        correct: 1,
+        explanation: "Use 'Once a week' (1x), 'Twice a week' (2x), and 'lesson' (/ˈles.ən/) for a class!"
+      },
+      {
+        q: "2. Complete the sentence: 'When people expect perfection immediately, they can be very...'",
+        options: [
+          "hard with themselves.",
+          "hard on themselves / self-critical.",
+          "abrupt with themselves."
+        ],
+        correct: 1,
+        explanation: "In English, the collocation is 'to be hard ON oneself' or 'self-critical'."
+      },
+      {
+        q: "3. Which sentence correctly translates 'J'essaie d'apprendre cette méthode à mon collègue'?",
+        options: [
+          "I try to learn this method to my colleague.",
+          "I try to teach my colleague this method.",
+          "I try to educate this method to my colleague."
+        ],
+        correct: 1,
+        explanation: "Remember: the student LEARNS, and the instructor or mentor TEACHES ('teach someone something')."
+      },
+      {
+        q: "4. Which word describes the values and manners you grew up with (as opposed to school/university study)?",
+        options: [
+          "Your upbringing.",
+          "Your academic education.",
+          "Your bringing up."
+        ],
+        correct: 0,
+        explanation: "'Upbringing' is the noun for how a person is raised; 'education' refers to schooling."
+      },
+      {
+        q: "5. Choose the natural English word order for an indirect clause:",
+        options: [
+          "I always like trying to understand how works the system.",
+          "I always like trying to understand how does the system work.",
+          "I always like trying to understand how the system works."
+        ],
+        correct: 2,
+        explanation: "In indirect/embedded clauses ('understand how...'), keep Subject + Verb order: 'how the system works' / 'how things work'."
+      },
+      {
+        q: "6. When the manager wasn't at the daily standup meeting and everyone was talking at once, what did you do?",
+        options: [
+          "Nobody took it in charge, so I talked.",
+          "Nobody was taking charge, so I stepped up to lead the meeting.",
+          "Nobody took the momentum in charge."
+        ],
+        correct: 1,
+        explanation: "'To take charge' (without 'it in') and 'to step up' are natural leadership expressions."
+      },
+      {
+        q: "7. Which preposition is ALWAYS required before the person after the verb 'explain'?",
+        options: [
+          "I always explain the client why we need this update.",
+          "I always explain AT the client why we need this update.",
+          "I always explain TO the client why we need this update."
+        ],
+        correct: 2,
+        explanation: "Always use 'explain TO someone'!"
+      },
+      {
+        q: "8. How do you describe the sunny weather in 'l'Est de la France' over the past month?",
+        options: [
+          "We haven't had much rain for about a month in the East of France.",
+          "It's been one month that there is no rain in the Easter of France.",
+          "We don't have rain since one month in the Easter of France."
+        ],
+        correct: 0,
+        explanation: "Use Present Perfect + 'for about a month', and 'the East of France' (/iːst/, 1 syllable!)."
+      }
+    ];
+
+    let quizAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = quizQuestions.map((item, qIdx) => {
+        const answered = quizAnswers[qIdx] !== undefined;
+        const selected = quizAnswers[qIdx];
+
+        return `
+          <div class="p-4 rounded-2xl bg-alabaster border border-blush-100 space-y-3">
+            <p class="font-semibold text-sm text-plum-900">${item.q}</p>
+            <div class="space-y-2">
+              ${item.options.map((opt, oIdx) => {
+                let btnStyle = "bg-white hover:bg-blush-50 text-plum-800 border-blush-200";
+                if (answered) {
+                  if (oIdx === item.correct) {
+                    btnStyle = "bg-sage-50 border-sage-500 text-sage-700 font-bold";
+                  } else if (oIdx === selected && selected !== item.correct) {
+                    btnStyle = "bg-rose-50 border-rose-300 text-rose-700 line-through opacity-80";
+                  } else {
+                    btnStyle = "bg-white/60 border-blush-100 text-plum-700/50";
+                  }
+                }
+                return `
+                  <button
+                    onclick="answerQuiz(${qIdx}, ${oIdx})"
+                    ${answered ? 'disabled' : ''}
+                    class="w-full text-left px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm transition flex items-center justify-between ${btnStyle}"
+                  >
+                    <span>${opt}</span>
+                    ${answered && oIdx === item.correct ? '<span class="text-sage-600 font-bold">✓</span>' : ''}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+            ${answered ? `
+              <div class="text-xs p-2.5 rounded-lg ${selected === item.correct ? 'bg-sage-50 text-sage-700' : 'bg-amber-50 text-amber-800'}">
+                <strong>${selected === item.correct ? 'Bravo Hélène! 🌟' : 'Good try! 💡'}</strong> ${item.explanation}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      const correctCount = Object.keys(quizAnswers).filter(k => quizAnswers[k] === quizQuestions[k].correct).length;
+      const totalAnswered = Object.keys(quizAnswers).length;
+      document.getElementById('quizScoreBadge').textContent = `Score: ${correctCount} / ${quizQuestions.length}`;
+
+      if (totalAnswered === quizQuestions.length && correctCount >= 6 && typeof confetti === 'function') {
+        confetti({
+          particleCount: 90,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (quizAnswers[qIdx] !== undefined) return;
+      quizAnswers[qIdx] = oIdx;
+      if (oIdx === quizQuestions[qIdx].correct) {
+        speak(quizQuestions[qIdx].options[oIdx]);
+      }
+      renderQuiz();
+    }
+
+    function resetQuiz() {
+      quizAnswers = {};
+      renderQuiz();
+    }
+
+    // ==========================================
+    // 7. CHARTS INITIALIZATION (CHART.JS)
+    // ==========================================
+    function initCharts() {
+      const radarCtx = document.getElementById('skillsRadarChart');
+      if (radarCtx) {
+        new Chart(radarCtx, {
+          type: 'radar',
+          data: {
+            labels: [
+              'Conversational Flow',
+              'Spoken Initiative',
+              'Expressive Clarity',
+              'Idiomatic Phrasing',
+              'Prepositions & Syntax',
+              'Pronunciation Polish'
+            ],
+            datasets: [
+              {
+                label: 'Lesson 01 Baseline',
+                data: [92, 90, 86, 70, 68, 75],
+                backgroundColor: 'rgba(196, 104, 81, 0.22)',
+                borderColor: '#C46851',
+                pointBackgroundColor: '#4A2032',
+                borderWidth: 2
+              },
+              {
+                label: 'Target Goal (C1 Fluency)',
+                data: [96, 95, 94, 90, 90, 90],
+                backgroundColor: 'rgba(94, 130, 108, 0.12)',
+                borderColor: '#5E826C',
+                borderDash: [5, 5],
+                pointBackgroundColor: '#5E826C',
+                borderWidth: 1.5
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                suggestedMin: 50,
+                suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: {
+                  font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '600' },
+                  color: '#4A2032'
+                },
+                grid: { color: 'rgba(74, 32, 50, 0.08)' }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 },
+                  color: '#4A2032'
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const doughnutCtx = document.getElementById('topicsDoughnutChart');
+      if (doughnutCtx) {
+        new Chart(doughnutCtx, {
+          type: 'doughnut',
+          data: {
+            labels: [
+              'Idioms & Natural Phrasing',
+              'Prepositions & Syntax',
+              'Workplace Leadership',
+              'Hobbies, Swing & Lifestyle',
+              'Pronunciation & Rhythm'
+            ],
+            datasets: [{
+              data: [28, 24, 20, 16, 12],
+              backgroundColor: [
+                '#C46851',
+                '#4A2032',
+                '#5E826C',
+                '#E7B0A1',
+                '#D97706'
+              ],
+              borderWidth: 2,
+              borderColor: '#FFFFFF'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '62%',
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: {
+                  boxWidth: 12,
+                  font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 },
+                  color: '#4A2032'
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // Initialize everything on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderUpgrades();
+      filterVocab();
+      renderPronunciation();
+      updateFlashcardUI();
+      renderQuiz();
+      initCharts();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
